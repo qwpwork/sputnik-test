@@ -2,15 +2,20 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 
-import Weather from './components/Weather'
+import PageWeather from './components/PageWeather'
+import PageGallery from './components/PageGallery'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '*',
-      component: Weather
+      path: '/weather',
+      component: PageWeather
+    },
+    {
+      path: '/gallery',
+      component: PageGallery
     }
   ]
 })
