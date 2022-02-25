@@ -5,9 +5,9 @@
     <p> {{nasaFact}} </p>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
-
 export default {
   data() {
     return {
@@ -16,9 +16,9 @@ export default {
       nasaFact: 'Fact placeholder',
     }
   },
+  
   mounted() { 
     const nasaAPIUrl = 'https://api.nasa.gov/planetary/apod?api_key=8KRBvMKJ7jeLEsPpNb0xmMtNdRVVVPbPffSdtgDK'
-
     axios.get(nasaAPIUrl).then(response => {
       this.nasaTitle = response.data.title;
       this.nasaImg = response.data.hdurl;

@@ -4,11 +4,10 @@
     <NasaWidget />
   </div>
 </template>
-<script>
 
+<script>
 import WeatherWidget from './WeatherWidget.vue'
 import NasaWidget from './NasaWidget.vue'
-
 export default {
   components: {
     NasaWidget,
@@ -18,8 +17,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .first-ticket {
-    display: flex;
-    font-family: sans-serif;
-  }
+.first-ticket {
+  display: flex;
+  font-family: sans-serif;
+}
 </style>

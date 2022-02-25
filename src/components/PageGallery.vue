@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper"> 
-    <input class="searchInput" type="text" placeholder="Search" :submit='inputSubmit' v-on:keyup.enter="inputSubmit"/>
+    <input class="searchInput" type="text" placeholder="Search" :submit='inputSubmit' v-on:keyup.enter="inputSubmit" v-model="inputVal"/>
     <ul class="gallery">
       <li class="gallery__card" v-for="photo in photoCollection" :key="photo.id">
         <img class="gallery__photo" :src='photo.links.download' :alt='photo.alt_description'>
@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       photoCollection: {},
+      inputVal: '',
       isPlaceHolderVisible: true
     }
   },
@@ -35,12 +36,14 @@ export default {
         }
       }
     ]
-    console.log(this.photoCollection)
   },
   methods: {
     //on input submit we getting an obj with data and removing placeholder card
     inputSubmit: function(event) {
-      let apiURL = 'https://api.unsplash.com/photos/?client_id=H3-Toi2JaQdXrMs06_edRxtsyvXweUvf2JxS2nY3ISc'
+      //API Key
+      let apiURL = 'https://api.unsplash.com/photos/?client_id=H3-Toi2JaQdXrMs06_edRxtsyvXweUvf2JxS2nY3ISc';
+      //Adding query
+      apiURL = apiURL + '&query=' + this.inputVal;
       axios.get(apiURL).then(response => {
         this.photoCollection = response.data;
         this.isPlaceHolderVisible = false;

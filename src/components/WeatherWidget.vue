@@ -5,6 +5,7 @@
     <p>Соответствующая иконка, приходящая от АПИ: <img :src='weatherIcon'></p>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
 export default {
@@ -16,17 +17,15 @@ export default {
       isDarkModeActive: false
     }
   },
+
   mounted() {
     const weahterAPIUrl = 'http://api.openweathermap.org/data/2.5/weather?q=Tomskaya&appid=da5ed797a5045359d8f975c09788caf9&units=metric';
     //expected object with weather data
     axios.get(weahterAPIUrl).then(response => {
       this.weatherTemp = response.data.main.temp;
-
       //converting icon response to correct url
       this.weatherIcon = 'http://openweathermap.org/img/wn/' + response.data.weather[0].icon +'.png';
     });
-
-
     //darkmode activating by v-bind class
     this.currentTime= new Date().getHours();
     this.currentTime < 12 ? this.isDarkModeActive = true : 0;
