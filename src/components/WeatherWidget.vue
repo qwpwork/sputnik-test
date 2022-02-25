@@ -2,7 +2,7 @@
   <div class="weather" :class="{darkmode: isDarkModeActive}">
     <p>Текущее время (в часах): {{currentTime}} часов </p>
     <p>Температура воздуха: {{weatherTemp}}</p>
-    <p>Соответствующая иконка, приходящая от АПИ: {{weatherIcon}}</p>
+    <p>Соответствующая иконка, приходящая от АПИ: <img :src='weatherIcon'></p>
   </div>
 </template>
 <script>
@@ -10,9 +10,9 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      weatherTemp: '',
-      weatherIcon: '',
-      currentTime: '',
+      weatherTemp: '0',
+      weatherIcon: '0',
+      currentTime: '0',
       isDarkModeActive: false
     }
   },
@@ -21,7 +21,9 @@ export default {
     //expected object with weather data
     axios.get(weahterAPIUrl).then(response => {
       this.weatherTemp = response.data.main.temp;
-      this.weatherIcon = response.data.weather[0].icon;
+
+      //converting icon response to correct url
+      this.weatherIcon = 'http://openweathermap.org/img/wn/' + response.data.weather[0].icon +'.png';
     });
 
 
@@ -34,10 +36,13 @@ export default {
 
 <style lang="scss" scoped>
 .weather {
+  margin: 0 40px;
   background: #f2f2f2;
   color: #4a4a4a;
   width: 300px;
   padding: 50px;
+  border: 2px solid #4a4a4a;
+  border-radius: 5px;
 }
 .darkmode {
   background: #4a4a4a;
