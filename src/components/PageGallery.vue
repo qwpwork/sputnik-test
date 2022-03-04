@@ -9,9 +9,18 @@
       v-model="inputVal"
     />
     
+    <p class="preloader" :class="{preloader_visible: isLoading}">Loading</p>
+
     <ul class="gallery">
       <li class="gallery__card" v-for="photo in photoCollection" :key="photo.id">
-        <img class="gallery__photo" :src='photo.urls.small' :alt='photo.alt_description'>
+        
+        <img
+          class="gallery__photo"
+          :class='{gallery__photo_loading: isLoading}'
+          :src='photo.urls.small'
+          :alt='photo.alt_description'
+        >
+
         <p class="gallery__title">{{photo.alt_description}}</p>
         <p class="gallery__author">{{photo.user.name}}</p>
       </li>
@@ -28,6 +37,7 @@ export default {
       photoCollection: {},
       inputVal: '',
       isPlaceHolderVisible: true,
+      isLoading: true
     }
   },
 
@@ -45,11 +55,13 @@ export default {
         }
       }
     ]
+    this.isLoading = false
   },
   
   methods: {
     //on input submit we getting an obj with data and removing placeholder card
     inputSubmit: function(event) {
+      this.isLoading = true
       //API Key
       let apiURL = 'https://api.unsplash.com/photos/?client_id=H3-Toi2JaQdXrMs06_edRxtsyvXweUvf2JxS2nY3ISc';
       //Adding query
@@ -57,6 +69,7 @@ export default {
       axios.get(apiURL).then(response => {
         this.photoCollection = response.data;
       })
+      this.isLoading = false;
     }
   }
 }
