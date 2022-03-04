@@ -16,7 +16,7 @@ export default {
       nasaFact: 'Fact placeholder',
     }
   },
-  
+
   mounted() { 
     const nasaAPIUrl = 'https://api.nasa.gov/planetary/apod?api_key=8KRBvMKJ7jeLEsPpNb0xmMtNdRVVVPbPffSdtgDK'
     axios.get(nasaAPIUrl).then(response => {
@@ -29,13 +29,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .nasa {
-    width: 400px;
-    border: 2px solid #4a4a4a;
-    border-radius: 5px;
-    padding: 50px;
-    &__img {
-      max-width: 400px;
-    }
+.nasa {
+  width: 400px;
+  border: 2px solid #4a4a4a;
+  border-radius: 5px;
+  padding: 50px;
+  &__img {
+    max-width: 400px;
   }
+}
 </style>

@@ -1,9 +1,17 @@
 <template>
   <div class="wrapper"> 
-    <input class="searchInput" type="text" placeholder="Search" :submit='inputSubmit' v-on:keyup.enter="inputSubmit" v-model="inputVal"/>
+    <input 
+      class="searchInput"
+      type="text"
+      placeholder="Search"
+      :submit='inputSubmit'
+      v-on:keyup.enter="inputSubmit"
+      v-model="inputVal"
+    />
+    
     <ul class="gallery">
       <li class="gallery__card" v-for="photo in photoCollection" :key="photo.id">
-        <img class="gallery__photo" :src='photo.links.download' :alt='photo.alt_description'>
+        <img class="gallery__photo" :src='photo.urls.small' :alt='photo.alt_description'>
         <p class="gallery__title">{{photo.alt_description}}</p>
         <p class="gallery__author">{{photo.user.name}}</p>
       </li>
@@ -13,22 +21,23 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   data() {
     return {
       photoCollection: {},
       inputVal: '',
-      isPlaceHolderVisible: true
+      isPlaceHolderVisible: true,
     }
   },
 
   mounted() {
-    //setting data before submits
+    //setting data before submit
     this.photoCollection = [
       {
         id: 0,
-        links: {
-          download:  'https://via.placeholder.com/200',
+        urls: {
+          small: 'https://via.placeholder.com/200',
         },
         alt_description: 'description placeholder',
         user: {
@@ -37,6 +46,7 @@ export default {
       }
     ]
   },
+  
   methods: {
     //on input submit we getting an obj with data and removing placeholder card
     inputSubmit: function(event) {
@@ -46,7 +56,6 @@ export default {
       apiURL = apiURL + '&query=' + this.inputVal;
       axios.get(apiURL).then(response => {
         this.photoCollection = response.data;
-        this.isPlaceHolderVisible = false;
       })
     }
   }
@@ -85,10 +94,19 @@ export default {
   }
   &__photo {
     width: 200px;
+    &_loading {
+      display: none;
+    }
   }
   &__title {
     font-size: 18px;
     font-weight: 700;
+  }
+  .preloader {
+    display: none;
+    &_visible {
+      display: block;
+    }
   }
 }
 </style>
