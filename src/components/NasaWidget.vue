@@ -21,7 +21,7 @@ export default {
     const nasaAPIUrl = 'https://api.nasa.gov/planetary/apod?api_key=8KRBvMKJ7jeLEsPpNb0xmMtNdRVVVPbPffSdtgDK'
     axios.get(nasaAPIUrl).then(response => {
       this.nasaTitle = response.data.title;
-      this.nasaImg = response.data.hdurl;
+      this.nasaImg = response.data.url;
       this.nasaFact = response.data.explanation;
     })
   }
